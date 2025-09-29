@@ -1,0 +1,30 @@
+# Production Requirements for EV Backend
+# Core FastAPI and ASGI server
+fastapi==0.110.0
+uvicorn[standard]==0.29.0
+
+# Database
+sqlalchemy==2.0.30
+pymysql==1.1.1
+mysql-connector-python==8.4.0
+
+# OCPP Protocol
+ocpp==0.10.0
+
+# Environment and Configuration
+python-dotenv==1.0.1
+pydantic==2.7.1
+pydantic-settings==2.2.1
+
+# Additional dependencies
+python-multipart==0.0.6
+websockets==12.0
+
+# Production WSGI server (alternative to uvicorn)
+gunicorn==21.2.0
+
+# Monitoring and logging
+python-json-logger==2.0.7
+
+# Security
+cryptography==45.0.4
