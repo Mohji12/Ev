@@ -12,7 +12,11 @@ engine = create_engine(
     DATABASE_URL,
     pool_recycle=3600,
     echo=False,  # Set to True for SQL query debug logs
-    future=True
+    future=True,
+    connect_args={
+        "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+        "charset": "utf8mb4"
+    }
 )
 
 # Session factory bound to engine

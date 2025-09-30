@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ChargingSession, MeterValue, ChargingStatus } from '../types';
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = 'http://13.126.238.77:9000';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -46,8 +46,8 @@ export class WebSocketService {
 
   connect(clientId: string, onMessage: (data: any) => void, onError?: (error: Event) => void) {
     try {
-      console.log(`Attempting to connect to ws://127.0.0.1:9000/ws/${clientId}`);
-      this.ws = new WebSocket(`ws://127.0.0.1:9000/ws/${clientId}`);
+      console.log(`Attempting to connect to ws://13.126.238.77:9000/ws/${clientId}`);
+      this.ws = new WebSocket(`ws://13.126.238.77:9000/ws/${clientId}`);
       
       this.ws.onopen = () => {
         console.log('WebSocket connected successfully');

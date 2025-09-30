@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 from datetime import datetime
 from typing import Optional
 
@@ -18,6 +18,18 @@ class ChargingSession(ChargingSessionCreate):
     end_meter: Optional[float]
     end_soc: Optional[int]
 
+    @validator('end_time', pre=True)
+    def validate_end_time(cls, v):
+        if v is None or v == '0000-00-00 00:00:00' or str(v) == '0000-00-00 00:00:00':
+            return None
+        return v
+
+    @validator('start_time', pre=True)
+    def validate_start_time(cls, v):
+        if v is None or v == '0000-00-00 00:00:00' or str(v) == '0000-00-00 00:00:00':
+            return None
+        return v
+
     class Config:
         orm_mode = True
 
@@ -34,6 +46,12 @@ class MeterValueCreate(BaseModel):
 class MeterValue(MeterValueCreate):
     id: int
     timestamp: datetime
+
+    @validator('timestamp', pre=True)
+    def validate_timestamp(cls, v):
+        if v is None or v == '0000-00-00 00:00:00' or str(v) == '0000-00-00 00:00:00':
+            return None
+        return v
 
     class Config:
         orm_mode = True
