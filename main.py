@@ -1,5 +1,6 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from database import Base, engine
 from ocpp_router import ChargePoint
 from status_api import router as status_router
@@ -8,11 +9,29 @@ import uvicorn
 import os
 from datetime import datetime
 
+
+
 app = FastAPI(
     title="EV Charging Backend API",
     description="Backend API for EV Charging Station Management",
     version="1.0.0"
 )
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:5173",  # Vite default port
+        "http://127.0.0.1:5173",
+        "*"  # Allow all origins for development (remove in production)
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 Base.metadata.create_all(bind=engine)
 app.include_router(status_router)
